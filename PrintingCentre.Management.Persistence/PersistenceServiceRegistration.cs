@@ -19,6 +19,9 @@ namespace PrintingCentre.Management.Persistence
             services.AddScoped<IPrintTemplateRepository, PrintTemplateRepository>();
             services.AddScoped<IEnvelopeRepository, EnvelopeRepository>();
 
+            services.AddScoped<IPrintTemplateRepository, PrintTemplateRepository>();
+            services.AddScoped<IEnvelopeRepository, EnvelopeRepository>();
+
             return services;
         }
     }
