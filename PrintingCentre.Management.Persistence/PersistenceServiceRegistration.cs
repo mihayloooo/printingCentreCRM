@@ -16,6 +16,8 @@ namespace PrintingCentre.Management.Persistence
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IPrintTemplateRepository, PrintTemplateRepository>();
+            services.AddScoped<IEnvelopeRepository, EnvelopeRepository>();
 
             services.AddScoped<IPrintTemplateRepository, PrintTemplateRepository>();
             services.AddScoped<IEnvelopeRepository, EnvelopeRepository>();
