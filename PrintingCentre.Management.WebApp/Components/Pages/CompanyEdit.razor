@@ -14,12 +14,16 @@
                   FormName="EditCompanyForm"
                   OnInvalidSubmit="@HandleInvalidSubmit">
 
+            <FluentValidationValidator />
+            <ValidationSummary></ValidationSummary>
+
 
             <div class="row mb-3">
                 <label for="code" class="col-form-label col-md-3">Code: </label>
                 <div class="col-md-8">
                     <InputText id="code" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Code" placeholder="Enter code"></InputText>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(() => CompanyToUpdate.Code)" />
             </div>
 
             <div class="row mb-3">
@@ -27,6 +31,7 @@
                 <div class="col-md-8">
                     <InputText id="name" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Name" placeholder="Enter name"></InputText>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(() => CompanyToUpdate.Name)" />
             </div>
 
             <div class="row mb-3">

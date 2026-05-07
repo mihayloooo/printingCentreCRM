@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany;
 using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompanyDetail;
-using PrintingCentre.Management.Domain.Entities;
 
 namespace PrintingCentre.Management.WebApp.Components.Pages
 {

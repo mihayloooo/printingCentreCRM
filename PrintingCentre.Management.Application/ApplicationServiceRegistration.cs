@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using FluentValidation;
+using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany;
 
 namespace PrintingCentre.Management.Application
 {
@@ -8,6 +10,7 @@ namespace PrintingCentre.Management.Application
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddValidatorsFromAssemblyContaining<UpdateCompanyCommandValidator>();
 
             return services;
         }
