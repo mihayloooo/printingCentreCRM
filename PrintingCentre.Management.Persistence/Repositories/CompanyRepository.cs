@@ -14,5 +14,11 @@ namespace PrintingCentre.Management.Persistence.Repositories
             var matches = _dbContext.Companies.Any(c => c.Code.Equals(code));
             return Task.FromResult(matches);
         }
+
+        public Task<bool> IsCompanyCodeUnique(string code, Guid excludeCompanyId)
+        {
+            var matches = _dbContext.Companies.Any(c => c.Code.Equals(code) && c.CompanyId != excludeCompanyId);
+            return Task.FromResult(matches);
+        }
     }
 }
