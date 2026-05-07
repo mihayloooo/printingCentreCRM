@@ -1,0 +1,51 @@
+﻿@page "/companyoverview"
+@* @attribute [StreamRendering(true)] *@
+@rendermode InteractiveServer
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Company Overview</h1>
+    <a href="@($"companyadd")" class="btn btn-outline-primary me-2">
+        Add Company
+    </a>
+</div>
+
+@if (Companies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <CompanyDetailsQuickViewPopup Company="_selectedCompany" OnClose="ClosePopup" />
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Logo</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Companies)
+            {
+                <tr>
+                    <td>
+                        <div class="mb-3">
+                            <img src="@company.LogoUrl" class="employee-img rounded-circle img-fluid" />
+                        </div>
+                    </td>
+                    <td>@company.Code</td>
+                    <td>@company.Name</td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-primary btn-sm mb-1" @onclick="() => ShowQuickViewPopup(company)">
+                            Details
+                        </button>
+                        <a href="@($"companyedit/{company.CompanyId}")" class="btn btn-outline-primary btn-sm mb-1 ms-1">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

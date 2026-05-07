@@ -1,0 +1,65 @@
+﻿@page "/companyedit/{CompanyId:guid}"
+@using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany
+@using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompanyDetail
+
+@rendermode InteractiveServer
+
+@if (!Saved)
+{
+    <section class="employee-edit">
+
+        <h1 class="page-title">Details for @CompanyDetail.Code @CompanyDetail.Name</h1>
+
+        <EditForm Enhance Model="CompanyToUpdate" OnValidSubmit="@HandleValidSubmit"
+                  FormName="EditCompanyForm"
+                  OnInvalidSubmit="@HandleInvalidSubmit">
+
+
+            <div class="row mb-3">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Code" placeholder="Enter code"></InputText>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name" class="col-form-label col-md-3">Name: </label>
+                <div class="col-md-8">
+                    <InputText id="name" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Name" placeholder="Enter name"></InputText>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="logoUrl" class="col-form-label col-md-3">Logo URL: </label>
+                <div class="col-md-8">
+                    <InputText id="logoUrl" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.LogoUrl" placeholder="Enter logo URL"></InputText>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-8 offset-md-3">
+                    <div class="form-check">
+                        <InputCheckbox id="active" class="form-check-input" @bind-Value="@CompanyToUpdate.IsActive"></InputCheckbox>
+                        <label class="form-check-label" for="active">
+                            Active
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary me-1">Save employee</button>
+
+            <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+        </EditForm>
+
+
+
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}

@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36616.10 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AE912E7A-372B-4DBE-AB57-7715C285C0BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6A65E3E6-2E54-4023-ACB4-B52E7CF41E56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{765449D8-EA26-4003-87F3-C74896406245}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{96806AB3-183B-4CB6-8C5A-64224E00B246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintingCentre.Management.WebApp", "PrintingCentre.Management.WebApp\PrintingCentre.Management.WebApp.csproj", "{043A4989-C6B0-4E3D-9461-A1218171D937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintingCentre.Management.Domain", "PrintingCentre.Management.Domain\PrintingCentre.Management.Domain.csproj", "{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintingCentre.Management.Persistence", "PrintingCentre.Management.Persistence\PrintingCentre.Management.Persistence.csproj", "{0514010F-7A64-4DBA-96E7-1D3E4230FABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintingCentre.Management.Application", "PrintingCentre.Management.Application\PrintingCentre.Management.Application.csproj", "{1D084151-BBA4-4643-ACE1-130B7CD28C84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{043A4989-C6B0-4E3D-9461-A1218171D937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{043A4989-C6B0-4E3D-9461-A1218171D937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{043A4989-C6B0-4E3D-9461-A1218171D937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{043A4989-C6B0-4E3D-9461-A1218171D937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0514010F-7A64-4DBA-96E7-1D3E4230FABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0514010F-7A64-4DBA-96E7-1D3E4230FABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0514010F-7A64-4DBA-96E7-1D3E4230FABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0514010F-7A64-4DBA-96E7-1D3E4230FABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D084151-BBA4-4643-ACE1-130B7CD28C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D084151-BBA4-4643-ACE1-130B7CD28C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D084151-BBA4-4643-ACE1-130B7CD28C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D084151-BBA4-4643-ACE1-130B7CD28C84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6A65E3E6-2E54-4023-ACB4-B52E7CF41E56} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{765449D8-EA26-4003-87F3-C74896406245} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{96806AB3-183B-4CB6-8C5A-64224E00B246} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{043A4989-C6B0-4E3D-9461-A1218171D937} = {96806AB3-183B-4CB6-8C5A-64224E00B246}
+		{1EC8109B-EF9E-4CA6-9C74-C3F1DA632929} = {6A65E3E6-2E54-4023-ACB4-B52E7CF41E56}
+		{0514010F-7A64-4DBA-96E7-1D3E4230FABE} = {765449D8-EA26-4003-87F3-C74896406245}
+		{1D084151-BBA4-4643-ACE1-130B7CD28C84} = {6A65E3E6-2E54-4023-ACB4-B52E7CF41E56}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B94BFDE6-5E47-455B-B6EB-4330255FF46A}
+	EndGlobalSection
+EndGlobal
