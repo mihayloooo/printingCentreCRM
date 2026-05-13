@@ -12,7 +12,11 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         [Inject]
         public IMediator Mediator { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected string Message = string.Empty;
+        protected string StatusClass = string.Empty;
         protected bool IsSaved = false;
 
         protected override void OnInitialized()
@@ -23,12 +27,14 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         protected async Task HandleValidSubmit()
         {
             await Mediator.Send(Company);
-            IsSaved = true;
+            StatusClass = "alert-success";
             Message = "Company added successfully.";
+            IsSaved = true;
         }
 
-        protected void HandleInvalidSubmit()
+        protected void NavigateToOverview()
         {
+            NavigationManager.NavigateTo("/companyoverview");
         }
     }
 }

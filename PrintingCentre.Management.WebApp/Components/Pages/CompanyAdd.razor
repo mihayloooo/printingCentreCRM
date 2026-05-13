@@ -10,8 +10,7 @@
         <h3 class="page-title mb-5">Add New Company</h3>
 
         <EditForm Enhance Model="Company" OnValidSubmit="@HandleValidSubmit"
-                  FormName="AddCompanyForm"
-                  OnInvalidSubmit="@HandleInvalidSubmit">
+                  FormName="AddCompanyForm">
 
             <FluentValidationValidator />
 
@@ -52,5 +51,7 @@
 }
 else
 {
-    <div class="alert alert-success">@Message</div>
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
 }

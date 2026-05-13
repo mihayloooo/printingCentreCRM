@@ -45,12 +45,6 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
             Saved = true;
         }
 
-        protected void HandleInvalidSubmit()
-        {
-            StatusClass = "alert-danger";
-            Message = "There are some validation errors. Please try again.";
-        }
-
         protected void NavigateToOverview()
         {
             NavigationManager.NavigateTo("/companyoverview");
