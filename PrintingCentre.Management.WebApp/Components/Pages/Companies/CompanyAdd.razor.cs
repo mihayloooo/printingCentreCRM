@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Commands.CreateCompany;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.Companies
 {
     public partial class CompanyAdd
     {
@@ -38,3 +38,4 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         }
     }
 }
+

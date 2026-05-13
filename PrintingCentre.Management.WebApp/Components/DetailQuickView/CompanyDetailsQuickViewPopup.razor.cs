@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompaniesList;
 
-namespace PrintingCentre.Management.WebApp.Components
+namespace PrintingCentre.Management.WebApp.Components.DetailQuickView
 {
     public partial class CompanyDetailsQuickViewPopup
     {
@@ -19,3 +19,4 @@ namespace PrintingCentre.Management.WebApp.Components
         }
     }
 }
+

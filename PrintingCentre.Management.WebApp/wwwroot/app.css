@@ -12472,3 +12472,8 @@ h6, .h6 {
     color: #dc3545;
     font-size: 0.8rem;
 }
+
+/* Nav tabs */
+.nav-tabs .nav-link:not(.active) {
+    color: #6c757d;
+}

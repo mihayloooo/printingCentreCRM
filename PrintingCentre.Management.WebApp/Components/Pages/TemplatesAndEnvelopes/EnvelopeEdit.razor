@@ -1,0 +1,78 @@
+@page "/envelopeedit/{EnvelopeId:guid}"
+@using Microsoft.AspNetCore.Components.Forms
+@using PrintingCentre.Management.Application.Features.Envelopes.Commands.UpdateEnvelope
+@using PrintingCentre.Management.Application.Features.Envelopes.Queries.GetEnvelopeDetail
+
+@rendermode InteractiveServer
+
+@if (!Saved)
+{
+    <section class="employee-edit">
+
+        <h1 class="page-title mb-5">@EnvelopeDetail.Code</h1>
+
+        <EditForm Enhance Model="EnvelopeToUpdate" OnValidSubmit="@HandleValidSubmit"
+                  FormName="EditEnvelopeForm">
+
+            <FluentValidationValidator />
+
+            <div class="row mb-0">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control" @bind-Value="@EnvelopeToUpdate.Code" placeholder="Enter code"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => EnvelopeToUpdate.Code)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="description" class="col-form-label col-md-3">Description: </label>
+                <div class="col-md-8">
+                    <InputText id="description" class="form-control" @bind-Value="@EnvelopeToUpdate.Description" placeholder="Enter description"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => EnvelopeToUpdate.Description)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="envelopeUrl" class="col-form-label col-md-3">Envelope URL: </label>
+                <div class="col-md-8">
+                    <InputText id="envelopeUrl" class="form-control" @bind-Value="@EnvelopeToUpdate.EnvelopeUrl" placeholder="Enter envelope URL"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => EnvelopeToUpdate.EnvelopeUrl)" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="quantityInStock" class="col-form-label col-md-3">Quantity in Stock: </label>
+                <div class="col-md-8">
+                    <InputNumber id="quantityInStock" class="form-control" @bind-Value="@EnvelopeToUpdate.QuantityInStock"></InputNumber>
+                </div>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(() => EnvelopeToUpdate.QuantityInStock)" />
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-8 offset-md-3">
+                    <div class="form-check">
+                        <InputCheckbox id="active" class="form-check-input" @bind-Value="@EnvelopeToUpdate.IsActive"></InputCheckbox>
+                        <label class="form-check-label" for="active">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary me-1">Save envelope</button>
+            <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+
+        </EditForm>
+
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}

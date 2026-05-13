@@ -1,0 +1,78 @@
+@page "/printtemplateedit/{PrintTemplateId:guid}"
+@using Microsoft.AspNetCore.Components.Forms
+@using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.UpdatePrintTemplate
+@using PrintingCentre.Management.Application.Features.PrintTemplates.Queries.GetPrintTemplateDetail
+
+@rendermode InteractiveServer
+
+@if (!Saved)
+{
+    <section class="employee-edit">
+
+        <h1 class="page-title mb-5">@PrintTemplateDetail.Code</h1>
+
+        <EditForm Enhance Model="PrintTemplateToUpdate" OnValidSubmit="@HandleValidSubmit"
+                  FormName="EditPrintTemplateForm">
+
+            <FluentValidationValidator />
+
+            <div class="row mb-0">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control" @bind-Value="@PrintTemplateToUpdate.Code" placeholder="Enter code"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplateToUpdate.Code)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="description" class="col-form-label col-md-3">Description: </label>
+                <div class="col-md-8">
+                    <InputText id="description" class="form-control" @bind-Value="@PrintTemplateToUpdate.Description" placeholder="Enter description"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplateToUpdate.Description)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="templateUrl" class="col-form-label col-md-3">Template URL: </label>
+                <div class="col-md-8">
+                    <InputText id="templateUrl" class="form-control" @bind-Value="@PrintTemplateToUpdate.TemplateUrl" placeholder="Enter template URL"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplateToUpdate.TemplateUrl)" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="quantityInStock" class="col-form-label col-md-3">Quantity in Stock: </label>
+                <div class="col-md-8">
+                    <InputNumber id="quantityInStock" class="form-control" @bind-Value="@PrintTemplateToUpdate.QuantityInStock"></InputNumber>
+                </div>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(() => PrintTemplateToUpdate.QuantityInStock)" />
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-8 offset-md-3">
+                    <div class="form-check">
+                        <InputCheckbox id="active" class="form-check-input" @bind-Value="@PrintTemplateToUpdate.IsActive"></InputCheckbox>
+                        <label class="form-check-label" for="active">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary me-1">Save print template</button>
+            <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+
+        </EditForm>
+
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}
