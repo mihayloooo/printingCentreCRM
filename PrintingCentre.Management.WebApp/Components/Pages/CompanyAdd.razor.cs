@@ -20,12 +20,15 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
             Company ??= new();
         }
 
-        private async Task OnSubmit()
+        protected async Task HandleValidSubmit()
         {
             await Mediator.Send(Company);
             IsSaved = true;
-            Message = "Company added successfully";
+            Message = "Company added successfully.";
+        }
 
+        protected void HandleInvalidSubmit()
+        {
         }
     }
 }
