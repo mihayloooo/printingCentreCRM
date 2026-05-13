@@ -1,43 +1,57 @@
-﻿@page "/companyadd"
+@page "/companyadd"
+@using PrintingCentre.Management.Application.Features.Companies.Commands.CreateCompany
 
-<h3>Add New Company</h3>
-
+@rendermode InteractiveServer
 
 @if (!IsSaved)
 {
-    <EditForm Model="Company" OnSubmit="OnSubmit" Enhance FormName="AddCompanyForm">
+    <section class="employee-edit">
 
+        <h3 class="page-title mb-5">Add New Company</h3>
 
-        <div class="row mb-3">
-            <label for="name" class="col-form-label col-md-3">Name: </label>
-            <div class="col-md-8">
-                <InputText id="name" class="form-control col-md-8" @bind-Value="@Company.Name" placeholder="Enter company name"></InputText>
-            </div>
-        </div>
+        <EditForm Enhance Model="Company" OnValidSubmit="@HandleValidSubmit"
+                  FormName="AddCompanyForm">
 
-        <div class="row mb-3">
-            <label for="code" class="col-form-label col-md-3">Code: </label>
-            <div class="col-md-8">
-                <InputText id="code" class="form-control col-md-8" @bind-Value="@Company.Code" placeholder="Enter company code"></InputText>
-            </div>
+            <FluentValidationValidator />
 
-        </div>
-
-        <div class="row mb-3">
-            <label for="logoUrl" class="col-form-label col-md-3">LogoUrl: </label>
-            <div class="col-md-8">
-                <InputText id="logoUrl" class="form-control col-md-8" @bind-Value="@Company.LogoUrl" placeholder="Enter company logoUrl"></InputText>
+            <div class="row mb-0">
+                <label for="name" class="col-form-label col-md-3">Name: </label>
+                <div class="col-md-8">
+                    <InputText id="name" class="form-control col-md-8" @bind-Value="@Company.Name" placeholder="Enter company name"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => Company.Name)" />
+                </div>
             </div>
 
-        </div>
+            <div class="row mb-0">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control col-md-8" @bind-Value="@Company.Code" placeholder="Enter company code"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => Company.Code)" />
+                </div>
+            </div>
 
-        <div>
-            <button type="submit" class="btn btn-outline-primary ms-1">Submit</button>
-        </div>
+            <div class="row mb-0">
+                <label for="logoUrl" class="col-form-label col-md-3">Logo URL: </label>
+                <div class="col-md-8">
+                    <InputText id="logoUrl" class="form-control col-md-8" @bind-Value="@Company.LogoUrl" placeholder="Enter company logo URL"></InputText>
+                </div>
+            </div>
 
-    </EditForm>
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-1">Add company</button>
+            </div>
+
+        </EditForm>
+
+    </section>
 }
 else
 {
-    <h4 class="text-success">@Message</h4>
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
 }

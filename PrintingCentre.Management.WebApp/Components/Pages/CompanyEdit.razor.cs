@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany;
@@ -43,12 +43,6 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
             StatusClass = "alert-success";
             Message = "Company updated successfully.";
             Saved = true;
-        }
-
-        protected void HandleInvalidSubmit()
-        {
-            StatusClass = "alert-danger";
-            Message = "There are some validation errors. Please try again.";
         }
 
         protected void NavigateToOverview()
