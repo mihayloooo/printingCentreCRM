@@ -1,0 +1,108 @@
+@page "/templates"
+@rendermode InteractiveServer
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Print Templates & Envelopes</h1>
+    @if (_activeTab == "printTemplates")
+    {
+        <a href="/printTemplateadd" class="btn btn-outline-primary me-2">Add Print Template</a>
+    }
+    else
+    {
+        <a href="/envelopeadd" class="btn btn-outline-primary me-2">Add Envelope</a>
+    }
+</div>
+
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <button class="nav-link @(_activeTab == "printTemplates" ? "active" : "")"
+                @onclick='() => SetActiveTab("printTemplates")'>
+            Print Templates
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link @(_activeTab == "envelopes" ? "active" : "")"
+                @onclick='() => SetActiveTab("envelopes")'>
+            Envelopes
+        </button>
+    </li>
+</ul>
+
+@if (_activeTab == "printTemplates")
+{
+    @if (PrintTemplates == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <PrintTemplateDetailQuickViewPopup PrintTemplate="_selectedPrintTemplate" OnClose="ClosePopup" />
+        <table class="table table-light">
+            <thead class="table-primary">
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Template URL</th>
+                    <th>Qty in Stock</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var template in PrintTemplates)
+                {
+                    <tr>
+                        <td>@template.Code</td>
+                        <td>@template.Description</td>
+                        <td>@template.TemplateUrl</td>
+                        <td>@template.QuantityInStock</td>
+                        <td>@(template.IsActive ? "Yes" : "No")</td>
+                        <td class="text-end">
+                            <button class="btn btn-outline-primary btn-sm mb-1" @onclick="() => ShowPrintTemplatePopup(template)">Details</button>
+                            <a href="@($"printtemplateedit/{template.Id}")" class="btn btn-outline-primary btn-sm mb-1 ms-1">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    @if (Envelopes == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <EnvelopeDetailQuickViewPopup Envelope="_selectedEnvelope" OnClose="ClosePopup" />
+        <table class="table table-light">
+            <thead class="table-primary">
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Envelope URL</th>
+                    <th>Qty in Stock</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var envelope in Envelopes)
+                {
+                    <tr>
+                        <td>@envelope.Code</td>
+                        <td>@envelope.Description</td>
+                        <td>@envelope.EnvelopeUrl</td>
+                        <td>@envelope.QuantityInStock</td>
+                        <td>@(envelope.IsActive ? "Yes" : "No")</td>
+                        <td class="text-end">
+                            <button class="btn btn-outline-primary btn-sm mb-1" @onclick="() => ShowEnvelopePopup(envelope)">Details</button>
+                            <a href="@($"envelopeedit/{envelope.Id}")" class="btn btn-outline-primary btn-sm mb-1 ms-1">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
