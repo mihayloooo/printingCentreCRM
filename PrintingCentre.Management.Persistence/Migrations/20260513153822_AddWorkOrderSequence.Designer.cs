@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrintingCentre.Management.Persistence;
 
@@ -11,9 +12,11 @@ using PrintingCentre.Management.Persistence;
 namespace PrintingCentre.Management.Persistence.Migrations
 {
     [DbContext(typeof(PrintingCentreDbContext))]
-    partial class PrintingCentreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260513153822_AddWorkOrderSequence")]
+    partial class AddWorkOrderSequence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -451,7 +454,7 @@ namespace PrintingCentre.Management.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceEnvelopes")
+                        .WithMany("Envelopes")
                         .HasForeignKey("WorkOrderSequenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -470,7 +473,7 @@ namespace PrintingCentre.Management.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceTemplates")
+                        .WithMany("Templates")
                         .HasForeignKey("WorkOrderSequenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -507,9 +510,9 @@ namespace PrintingCentre.Management.Persistence.Migrations
 
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
                 {
-                    b.Navigation("WorkOrderSequenceEnvelopes");
+                    b.Navigation("Envelopes");
 
-                    b.Navigation("WorkOrderSequenceTemplates");
+                    b.Navigation("Templates");
                 });
 #pragma warning restore 612, 618
         }
