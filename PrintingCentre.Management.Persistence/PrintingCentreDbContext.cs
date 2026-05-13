@@ -13,6 +13,7 @@ namespace PrintingCentre.Management.Persistence
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<PrintTemplate> PrintTemplates { get; set; }
+        public DbSet<Envelope> Envelopes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {

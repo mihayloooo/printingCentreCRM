@@ -32,7 +32,7 @@ namespace PrintingCentre.Management.Application.Features.Companies.Commands.Upda
 
         private async Task<bool> CompanyCodeUnique(UpdateCompanyCommand e, CancellationToken token)
         {
-            return !await _companyRepository.IsCompanyCodeUnique(e.Code);
+            return !await _companyRepository.IsCompanyCodeUnique(e.Code, e.CompanyId);
         }
     }
 }

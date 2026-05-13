@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompaniesList;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.Companies
 {
     public partial class CompanyOverview
     {
@@ -31,3 +31,4 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         }
     }
 }
+

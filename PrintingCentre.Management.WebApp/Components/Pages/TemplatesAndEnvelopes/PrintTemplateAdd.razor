@@ -1,0 +1,61 @@
+@page "/printTemplateadd"
+@using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.CreatePrintTemplate
+
+@rendermode InteractiveServer
+
+@if (!IsSaved)
+{
+    <section class="employee-edit">
+
+        <h3 class="page-title mb-5">Add New Template</h3>
+
+        <EditForm Enhance Model="PrintTemplate" OnValidSubmit="@HandleValidSubmit"
+                  FormName="AddPrintTemplateForm">
+
+            <FluentValidationValidator />
+
+            <div class="row mb-0">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control" @bind-Value="@PrintTemplate.Code" placeholder="Enter code"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplate.Code)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="description" class="col-form-label col-md-3">Description: </label>
+                <div class="col-md-8">
+                    <InputText id="description" class="form-control" @bind-Value="@PrintTemplate.Description" placeholder="Enter description"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplate.Description)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="templateUrl" class="col-form-label col-md-3">Template URL: </label>
+                <div class="col-md-8">
+                    <InputText id="templateUrl" class="form-control" @bind-Value="@PrintTemplate.TemplateUrl" placeholder="Enter template URL"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => PrintTemplate.TemplateUrl)" />
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-1">Add print template</button>
+                <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+            </div>
+
+        </EditForm>
+
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}

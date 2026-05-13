@@ -3,9 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany;
 using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompanyDetail;
-using PrintingCentre.Management.Domain.Entities;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.Companies
 {
     public partial class CompanyEdit
     {
@@ -46,15 +45,10 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
             Saved = true;
         }
 
-        protected void HandleInvalidSubmit()
-        {
-            StatusClass = "alert-danger";
-            Message = "There are some validation errors. Please try again.";
-        }
-
         protected void NavigateToOverview()
         {
             NavigationManager.NavigateTo("/companyoverview");
         }
     }
 }
+

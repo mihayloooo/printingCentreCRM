@@ -1,0 +1,61 @@
+@page "/envelopeadd"
+@using PrintingCentre.Management.Application.Features.Envelopes.Commands.CreateEnvelope
+
+@rendermode InteractiveServer
+
+@if (!IsSaved)
+{
+    <section class="employee-edit">
+
+        <h3 class="page-title mb-5">Add New Envelope</h3>
+
+        <EditForm Enhance Model="Envelope" OnValidSubmit="@HandleValidSubmit"
+                  FormName="AddEnvelopeForm">
+
+            <FluentValidationValidator />
+
+            <div class="row mb-0">
+                <label for="code" class="col-form-label col-md-3">Code: </label>
+                <div class="col-md-8">
+                    <InputText id="code" class="form-control" @bind-Value="@Envelope.Code" placeholder="Enter code"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => Envelope.Code)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="description" class="col-form-label col-md-3">Description: </label>
+                <div class="col-md-8">
+                    <InputText id="description" class="form-control" @bind-Value="@Envelope.Description" placeholder="Enter description"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => Envelope.Description)" />
+                </div>
+            </div>
+
+            <div class="row mb-0">
+                <label for="envelopeUrl" class="col-form-label col-md-3">Envelope URL: </label>
+                <div class="col-md-8">
+                    <InputText id="envelopeUrl" class="form-control" @bind-Value="@Envelope.EnvelopeUrl" placeholder="Enter envelope URL"></InputText>
+                </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => Envelope.EnvelopeUrl)" />
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-1">Add envelope</button>
+                <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+            </div>
+
+        </EditForm>
+
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}

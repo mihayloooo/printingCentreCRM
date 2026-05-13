@@ -1,4 +1,5 @@
-﻿@page "/companyedit/{CompanyId:guid}"
+@page "/companyedit/{CompanyId:guid}"
+@using Microsoft.AspNetCore.Components.Forms
 @using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany
 @using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompanyDetail
 
@@ -8,35 +9,43 @@
 {
     <section class="employee-edit">
 
-        <h1 class="page-title">Details for @CompanyDetail.Code @CompanyDetail.Name</h1>
+        <h1 class="page-title mb-5">@CompanyDetail.Code @CompanyDetail.Name</h1>
 
         <EditForm Enhance Model="CompanyToUpdate" OnValidSubmit="@HandleValidSubmit"
-                  FormName="EditCompanyForm"
-                  OnInvalidSubmit="@HandleInvalidSubmit">
+                  FormName="EditCompanyForm">
 
+            <FluentValidationValidator />
+@*             <ValidationSummary></ValidationSummary>
+ *@
 
-            <div class="row mb-3">
+            <div class="row mb-0">
                 <label for="code" class="col-form-label col-md-3">Code: </label>
                 <div class="col-md-8">
                     <InputText id="code" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Code" placeholder="Enter code"></InputText>
                 </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => CompanyToUpdate.Code)" />
+                </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-0">
                 <label for="name" class="col-form-label col-md-3">Name: </label>
                 <div class="col-md-8">
                     <InputText id="name" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.Name" placeholder="Enter name"></InputText>
                 </div>
+                <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                    <ValidationMessage For="@(() => CompanyToUpdate.Name)" />
+                </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-2">
                 <label for="logoUrl" class="col-form-label col-md-3">Logo URL: </label>
                 <div class="col-md-8">
                     <InputText id="logoUrl" class="form-control col-md-8" @bind-Value="@CompanyToUpdate.LogoUrl" placeholder="Enter logo URL"></InputText>
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-2">
                 <div class="col-md-8 offset-md-3">
                     <div class="form-check">
                         <InputCheckbox id="active" class="form-check-input" @bind-Value="@CompanyToUpdate.IsActive"></InputCheckbox>
