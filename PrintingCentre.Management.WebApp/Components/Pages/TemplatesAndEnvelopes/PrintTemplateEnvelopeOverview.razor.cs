@@ -1,9 +1,9 @@
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Envelopes.Queries.GetEnvelopesList;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Queries.GetPrintTemplatesList;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.TemplatesAndEnvelopes
 {
     public partial class PrintTemplateEnvelopeOverview
     {
@@ -40,3 +40,4 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         }
     }
 }
+

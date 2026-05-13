@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components;
-using PrintingCentre.Management.Application.Features.Companies.Commands.CreateCompany;
+using PrintingCentre.Management.Application.Features.Envelopes.Commands.CreateEnvelope;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.TemplatesAndEnvelopes
 {
-    public partial class CompanyAdd
+    public partial class EnvelopeAdd
     {
         [SupplyParameterFromForm]
-        public CreateCompanyCommand Company { get; set; }
+        public CreateEnvelopeCommand Envelope { get; set; } = new();
 
         [Inject]
         public IMediator Mediator { get; set; }
@@ -21,20 +21,21 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
 
         protected override void OnInitialized()
         {
-            Company ??= new();
+            Envelope ??= new();
         }
 
         protected async Task HandleValidSubmit()
         {
-            await Mediator.Send(Company);
+            await Mediator.Send(Envelope);
             StatusClass = "alert-success";
-            Message = "Company added successfully.";
+            Message = "Envelope added successfully.";
             IsSaved = true;
         }
 
         protected void NavigateToOverview()
         {
-            NavigationManager.NavigateTo("/companyoverview");
+            NavigationManager.NavigateTo("/templates&envelopes?tab=envelopes");
         }
     }
 }
+

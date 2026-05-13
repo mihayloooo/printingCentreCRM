@@ -1,10 +1,10 @@
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Envelopes.Commands.UpdateEnvelope;
 using PrintingCentre.Management.Application.Features.Envelopes.Queries.GetEnvelopeDetail;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.TemplatesAndEnvelopes
 {
     public partial class EnvelopeEdit
     {
@@ -46,7 +46,8 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
 
         protected void NavigateToOverview()
         {
-            NavigationManager.NavigateTo("/templates?tab=envelopes");
+            NavigationManager.NavigateTo("/templates&envelopes?tab=envelopes");
         }
     }
 }
+

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Envelopes.Queries.GetEnvelopesList;
 
-namespace PrintingCentre.Management.WebApp.Components
+namespace PrintingCentre.Management.WebApp.Components.DetailQuickView
 {
     public partial class EnvelopeDetailQuickViewPopup
     {
@@ -17,3 +17,4 @@ namespace PrintingCentre.Management.WebApp.Components
         }
     }
 }
+

@@ -1,10 +1,10 @@
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.UpdatePrintTemplate;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Queries.GetPrintTemplateDetail;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.TemplatesAndEnvelopes
 {
     public partial class PrintTemplateEdit
     {
@@ -46,7 +46,8 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
 
         protected void NavigateToOverview()
         {
-            NavigationManager.NavigateTo("/templates");
+            NavigationManager.NavigateTo("/templates&envelopes");
         }
     }
 }
+

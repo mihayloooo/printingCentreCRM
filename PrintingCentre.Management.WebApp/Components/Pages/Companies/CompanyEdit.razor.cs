@@ -1,10 +1,10 @@
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.Companies.Commands.UpdateCompany;
 using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompanyDetail;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.Companies
 {
     public partial class CompanyEdit
     {
@@ -51,3 +51,4 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
         }
     }
 }
+

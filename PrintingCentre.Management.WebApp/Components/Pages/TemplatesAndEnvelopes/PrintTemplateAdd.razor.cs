@@ -1,8 +1,8 @@
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Components;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.CreatePrintTemplate;
 
-namespace PrintingCentre.Management.WebApp.Components.Pages
+namespace PrintingCentre.Management.WebApp.Components.Pages.TemplatesAndEnvelopes
 {
     public partial class PrintTemplateAdd
     {
@@ -34,7 +34,8 @@ namespace PrintingCentre.Management.WebApp.Components.Pages
 
         protected void NavigateToOverview()
         {
-            NavigationManager.NavigateTo("/templates");
+            NavigationManager.NavigateTo("/templates&envelopes");
         }
     }
 }
+
