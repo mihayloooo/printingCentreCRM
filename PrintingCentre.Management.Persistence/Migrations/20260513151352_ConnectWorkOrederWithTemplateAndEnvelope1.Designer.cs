@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrintingCentre.Management.Persistence;
 
@@ -11,9 +12,11 @@ using PrintingCentre.Management.Persistence;
 namespace PrintingCentre.Management.Persistence.Migrations
 {
     [DbContext(typeof(PrintingCentreDbContext))]
-    partial class PrintingCentreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260513151352_ConnectWorkOrederWithTemplateAndEnvelope1")]
+    partial class ConnectWorkOrederWithTemplateAndEnvelope1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,27 +294,6 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.ToTable("WorkOrders");
                 });
 
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FlowSequenceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WorkOrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlowSequenceId");
-
-                    b.HasIndex("WorkOrderId");
-
-                    b.ToTable("WorkOrderSequences");
-                });
-
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceEnvelope", b =>
                 {
                     b.Property<Guid>("Id")
@@ -324,14 +306,14 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.Property<int>("EnvelopedItems")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("WorkOrderSequenceId")
+                    b.Property<Guid>("WorkOrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EnvelopeId");
 
-                    b.HasIndex("WorkOrderSequenceId");
+                    b.HasIndex("WorkOrderId");
 
                     b.ToTable("WorkOrderSequenceEnvelopes");
                 });
@@ -348,14 +330,14 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.Property<int>("PrintedPages")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("WorkOrderSequenceId")
+                    b.Property<Guid>("WorkOrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PrintTemplateId");
 
-                    b.HasIndex("WorkOrderSequenceId");
+                    b.HasIndex("WorkOrderId");
 
                     b.ToTable("WorkOrderSequenceTemplates");
                 });
@@ -423,61 +405,34 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.Navigation("Flow");
                 });
 
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
+            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceEnvelope", b =>
                 {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.FlowSequence", "FlowSequence")
-                        .WithMany("WorkOrderSequences")
-                        .HasForeignKey("FlowSequenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("PrintingCentre.Management.Domain.Entities.Envelope", null)
+                        .WithMany("WorkOrderSequenceEnvelopes")
+                        .HasForeignKey("EnvelopeId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrder", "WorkOrder")
-                        .WithMany("WorkOrderSequences")
+                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrder", null)
+                        .WithMany("WorkOrderSequenceEnvelopes")
                         .HasForeignKey("WorkOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("FlowSequence");
-
-                    b.Navigation("WorkOrder");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceEnvelope", b =>
-                {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.Envelope", "Envelope")
-                        .WithMany("WorkOrderSequenceEnvelopes")
-                        .HasForeignKey("EnvelopeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceEnvelopes")
-                        .HasForeignKey("WorkOrderSequenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Envelope");
-
-                    b.Navigation("WorkOrderSequence");
                 });
 
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceTemplate", b =>
                 {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.PrintTemplate", "PrintTemplate")
+                    b.HasOne("PrintingCentre.Management.Domain.Entities.PrintTemplate", null)
                         .WithMany("WorkOrderSequenceTemplates")
                         .HasForeignKey("PrintTemplateId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceTemplates")
-                        .HasForeignKey("WorkOrderSequenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PrintTemplate");
-
-                    b.Navigation("WorkOrderSequence");
+                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrder", null)
+                        .WithMany("WorkOrderSequenceTemplates")
+                        .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.Envelope", b =>
@@ -490,22 +445,12 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.Navigation("FlowSequences");
                 });
 
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.FlowSequence", b =>
-                {
-                    b.Navigation("WorkOrderSequences");
-                });
-
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.PrintTemplate", b =>
                 {
                     b.Navigation("WorkOrderSequenceTemplates");
                 });
 
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrder", b =>
-                {
-                    b.Navigation("WorkOrderSequences");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
                 {
                     b.Navigation("WorkOrderSequenceEnvelopes");
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PrintingCentre.Management.Domain.Common;
 using PrintingCentre.Management.Domain.Entities;
 
@@ -14,6 +14,13 @@ namespace PrintingCentre.Management.Persistence
         public DbSet<Company> Companies { get; set; }
         public DbSet<PrintTemplate> PrintTemplates { get; set; }
         public DbSet<Envelope> Envelopes { get; set; }
+        public DbSet<Flow> Flows { get; set; }
+        public DbSet<FlowSequence> FlowSequences { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
+        public DbSet<WorkOrderSequence> WorkOrderSequences { get; set; }
+        public DbSet<WorkOrderSequenceTemplate> WorkOrderSequenceTemplates { get; set; }
+        public DbSet<WorkOrderSequenceEnvelope> WorkOrderSequenceEnvelopes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
