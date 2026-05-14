@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrintingCentre.Management.Persistence;
 
@@ -11,9 +12,11 @@ using PrintingCentre.Management.Persistence;
 namespace PrintingCentre.Management.Persistence.Migrations
 {
     [DbContext(typeof(PrintingCentreDbContext))]
-    partial class PrintingCentreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260513143746_AddWorkOrder")]
+    partial class AddWorkOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,107 +262,6 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.ToTable("PrintTemplates");
                 });
 
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrder", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("FlowId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlowId");
-
-                    b.ToTable("WorkOrders");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FlowSequenceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WorkOrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlowSequenceId");
-
-                    b.HasIndex("WorkOrderId");
-
-                    b.ToTable("WorkOrderSequences");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceEnvelope", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EnvelopeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("EnvelopedItems")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkOrderSequenceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EnvelopeId");
-
-                    b.HasIndex("WorkOrderSequenceId");
-
-                    b.ToTable("WorkOrderSequenceEnvelopes");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceTemplate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PrintTemplateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("PrintedPages")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkOrderSequenceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrintTemplateId");
-
-                    b.HasIndex("WorkOrderSequenceId");
-
-                    b.ToTable("WorkOrderSequenceTemplates");
-                });
-
             modelBuilder.Entity("EnvelopeFlowSequence", b =>
                 {
                     b.HasOne("PrintingCentre.Management.Domain.Entities.Envelope", null)
@@ -412,104 +314,9 @@ namespace PrintingCentre.Management.Persistence.Migrations
                     b.Navigation("Flow");
                 });
 
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrder", b =>
-                {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.Flow", "Flow")
-                        .WithMany()
-                        .HasForeignKey("FlowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flow");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
-                {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.FlowSequence", "FlowSequence")
-                        .WithMany("WorkOrderSequences")
-                        .HasForeignKey("FlowSequenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrder", "WorkOrder")
-                        .WithMany("WorkOrderSequences")
-                        .HasForeignKey("WorkOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FlowSequence");
-
-                    b.Navigation("WorkOrder");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceEnvelope", b =>
-                {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.Envelope", "Envelope")
-                        .WithMany("WorkOrderSequenceEnvelopes")
-                        .HasForeignKey("EnvelopeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceEnvelopes")
-                        .HasForeignKey("WorkOrderSequenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Envelope");
-
-                    b.Navigation("WorkOrderSequence");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequenceTemplate", b =>
-                {
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.PrintTemplate", "PrintTemplate")
-                        .WithMany("WorkOrderSequenceTemplates")
-                        .HasForeignKey("PrintTemplateId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", "WorkOrderSequence")
-                        .WithMany("WorkOrderSequenceTemplates")
-                        .HasForeignKey("WorkOrderSequenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PrintTemplate");
-
-                    b.Navigation("WorkOrderSequence");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.Envelope", b =>
-                {
-                    b.Navigation("WorkOrderSequenceEnvelopes");
-                });
-
             modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.Flow", b =>
                 {
                     b.Navigation("FlowSequences");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.FlowSequence", b =>
-                {
-                    b.Navigation("WorkOrderSequences");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.PrintTemplate", b =>
-                {
-                    b.Navigation("WorkOrderSequenceTemplates");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrder", b =>
-                {
-                    b.Navigation("WorkOrderSequences");
-                });
-
-            modelBuilder.Entity("PrintingCentre.Management.Domain.Entities.WorkOrderSequence", b =>
-                {
-                    b.Navigation("WorkOrderSequenceEnvelopes");
-
-                    b.Navigation("WorkOrderSequenceTemplates");
                 });
 #pragma warning restore 612, 618
         }

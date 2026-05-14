@@ -10,5 +10,8 @@ namespace PrintingCentre.Management.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public int QuantityInStock { get; set; } = 0;
         public bool IsActive { get; set; } = true;
+
+        public ICollection<FlowSequence> FlowSequences { get; set; } = default!;
+        public ICollection<WorkOrderSequenceTemplate> WorkOrderSequenceTemplates { get; set; } = default!;
     }
 }
