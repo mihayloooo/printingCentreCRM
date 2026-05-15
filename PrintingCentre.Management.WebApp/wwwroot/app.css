@@ -12477,3 +12477,11 @@ h6, .h6 {
 .nav-tabs .nav-link:not(.active) {
     color: #6c757d;
 }
+
+/* Prevent outline buttons from staying filled after click */
+.btn-outline-success:focus:not(:hover),
+.btn-outline-danger:focus:not(:hover) {
+    background-color: transparent;
+    color: var(--bs-btn-color);
+    box-shadow: none;
+}

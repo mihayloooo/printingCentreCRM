@@ -14,8 +14,8 @@ namespace PrintingCentre.Management.Domain.Entities
         public Guid FlowId { get; set; }
         public Flow Flow { get; set; } = default!;
 
-        public ICollection<PrintTemplate> PrintTemplates { get; set; } = default!;
-        public ICollection<Envelope> Envelopes { get; set; } = default!;
+        public ICollection<FlowSequencePrintTemplate> FlowSequencePrintTemplates { get; set; } = default!;
+        public ICollection<FlowSequenceEnvelope> FlowSequenceEnvelopes { get; set; } = default!;
         public ICollection<WorkOrderSequence> WorkOrderSequences { get; set; } = default!;
     }
 }

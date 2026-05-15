@@ -1,0 +1,198 @@
+@page "/flowadd"
+@using PrintingCentre.Management.Application.Features.Flows.Commands.CreateFlow
+@using PrintingCentre.Management.Application.Features.Companies.Queries.GetCompaniesList
+@using PrintingCentre.Management.Domain.Entities
+
+@rendermode InteractiveServer
+
+@if (!IsSaved)
+{
+    <section>
+        <h3 class="page-title mb-5">Add New Flow</h3>
+
+        <EditForm Model="Flow" OnValidSubmit="@HandleValidSubmit" FormName="AddFlowForm">
+
+            <FluentValidationValidator />
+
+            <div class="card mb-4 col-md-11">
+                <div class="card-header">
+                    <span>Flow Details</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="row mb-0">
+                        <label for="companyId" class="col-form-label col-md-3">Company: </label>
+                        <div class="col-md-4">
+                            <InputSelect id="companyId" class="form-select" @bind-Value="@Flow.CompanyId">
+                                <option value="@Guid.Empty">-- Select company --</option>
+                                @foreach (var company in Companies)
+                                {
+                                    <option value="@company.CompanyId">@company.Name (@company.Code)</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="offset-md-3 col-md-4" style="min-height:1.5rem;">
+                            <ValidationMessage For="@(() => Flow.CompanyId)" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-0">
+                        <label for="name" class="col-form-label col-md-3">Name: </label>
+                        <div class="col-md-8">
+                            <InputText id="name" class="form-control" @bind-Value="@Flow.Name" placeholder="Enter flow name" />
+                        </div>
+                        <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                            <ValidationMessage For="@(() => Flow.Name)" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-0">
+                        <label for="note" class="col-form-label col-md-3">Note: </label>
+                        <div class="col-md-8">
+                            <InputTextArea id="note" class="form-control" @bind-Value="@Flow.Note" placeholder="Enter note (optional)" rows="3" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h5 class="mb-3">Flow Sequences</h5>
+
+            @for (int i = 0; i < Flow.FlowSequences.Count; i++)
+            {
+                var index = i;
+                <div class="card mb-3 col-md-11">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Sequence @(index + 1)</span>
+                        @if (Flow.FlowSequences.Count > 1)
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveSequence(index)">Remove</button>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row mb-0">
+                            <label class="col-form-label col-md-3">Name: </label>
+                            <div class="col-md-8">
+                                <InputText class="form-control" @bind-Value="Flow.FlowSequences[index].Name" placeholder="Enter sequence name" />
+                            </div>
+                            <div class="offset-md-3 col-md-8" style="min-height:1.5rem;">
+                                <ValidationMessage For="@(() => Flow.FlowSequences[index].Name)" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label col-md-3">Note: </label>
+                            <div class="col-md-8">
+                                <InputTextArea class="form-control" @bind-Value="Flow.FlowSequences[index].Note" placeholder="Enter note (optional)" rows="2" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-form-label col-md-3">Print side: </label>
+                            <div class="col-md-4">
+                                <InputSelect class="form-select" @bind-Value="Flow.FlowSequences[index].PrintSide">
+                                    @foreach (var value in Enum.GetValues<PrintSide>())
+                                    {
+                                        <option value="@value">@value</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-form-label col-md-3">Color mode: </label>
+                            <div class="col-md-4">
+                                <InputSelect class="form-select" @bind-Value="Flow.FlowSequences[index].ColorMode">
+                                    @foreach (var value in Enum.GetValues<ColorMode>())
+                                    {
+                                        <option value="@value">@value</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label col-md-3">Shipment type: </label>
+                            <div class="col-md-4">
+                                <InputSelect class="form-select" @bind-Value="Flow.FlowSequences[index].ShipmentType">
+                                    @foreach (var value in Enum.GetValues<ShipmentType>())
+                                    {
+                                        <option value="@value">@value</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-form-label col-md-3">Templates: </label>
+                            <div class="col-md-8">
+                                @for (int t = 0; t < Flow.FlowSequences[index].Templates.Count; t++)
+                                {
+                                    var tmplIndex = t;
+                                    var tmpl = Flow.FlowSequences[index].Templates[tmplIndex];
+                                    <div class="d-flex gap-2 mb-2">
+                                        <InputSelect class="form-select" @bind-Value="tmpl.PrintTemplateId">
+                                            <option value="@Guid.Empty">-- Select template --</option>
+                                            @foreach (var template in PrintTemplates)
+                                            {
+                                                <option value="@template.Id">@template.Code — @template.Description</option>
+                                            }
+                                        </InputSelect>
+                                        @if (Flow.FlowSequences[index].Templates.Count > 1)
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveTemplate(index, tmplIndex)">Remove</button>
+                                        }
+                                    </div>
+                                }
+                                <button type="button" class="btn btn-sm btn-outline-success" @onclick="() => AddTemplate(index)">+ Add template</button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <label class="col-form-label col-md-3">Envelopes: </label>
+                            <div class="col-md-8">
+                                @for (int e = 0; e < Flow.FlowSequences[index].Envelopes.Count; e++)
+                                {
+                                    var envIndex = e;
+                                    var env = Flow.FlowSequences[index].Envelopes[envIndex];
+                                    <div class="d-flex gap-2 mb-2">
+                                        <InputSelect class="form-select" @bind-Value="env.EnvelopeId">
+                                            <option value="@Guid.Empty">-- Select envelope --</option>
+                                            @foreach (var envelope in Envelopes)
+                                            {
+                                                <option value="@envelope.Id">@envelope.Code — @envelope.Description</option>
+                                            }
+                                        </InputSelect>
+                                        @if (Flow.FlowSequences[index].Envelopes.Count > 1)
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveEnvelope(index, envIndex)">Remove</button>
+                                        }
+                                    </div>
+                                }
+                                <button type="button" class="btn btn-sm btn-outline-success" @onclick="() => AddEnvelope(index)">+ Add envelope</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+            <div class="col-md-11 mb-4 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-outline-success" @onclick="AddSequence">+ Add sequence</button>
+            </div>
+
+            <hr class="col-md-11 mb-4" />
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-primary me-1">Add flow</button>
+            </div>
+
+        </EditForm>
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+    <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
+}
