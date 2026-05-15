@@ -1,0 +1,136 @@
+@rendermode InteractiveServer
+
+@if (Flow != null)
+{
+    <div class="modal fade show d-block" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Flow Details</h5>
+                    <button type="button" class="close btn btn-lg" @onclick="@Close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Name:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@Flow.Name</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Note:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@(Flow.Note ?? "-")</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Created on:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@Flow.CreatedDate.ToShortDateString()</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Created by:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@Flow.CreatedBy</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Last modified on:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@(Flow.LastModifiedDate?.ToShortDateString() ?? "-")</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Last modified by:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@(Flow.LastModifiedBy ?? "-")</label>
+                        </div>
+                    </div>
+
+                    @if (Flow.FlowSequences.Any())
+                    {
+                        <hr />
+                        <h6 class="mb-3">Flow Sequences</h6>
+
+                        @foreach (var seq in Flow.FlowSequences)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <strong>@seq.Name</strong>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="form-group row mb-1">
+                                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Note:</label>
+                                        <div class="col-sm-8 ps-5">
+                                            <label class="form-control-plaintext">@(seq.Note ?? "-")</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-1">
+                                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Print side:</label>
+                                        <div class="col-sm-8 ps-5">
+                                            <label class="form-control-plaintext">@seq.PrintSide</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-1">
+                                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Color mode:</label>
+                                        <div class="col-sm-8 ps-5">
+                                            <label class="form-control-plaintext">@seq.ColorMode</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-2">
+                                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Shipment type:</label>
+                                        <div class="col-sm-8 ps-5">
+                                            <label class="form-control-plaintext">@seq.ShipmentType</label>
+                                        </div>
+                                    </div>
+
+                                    @if (seq.Templates.Any())
+                                    {
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-nowrap pe-4">Templates:</label>
+                                            <div class="col-sm-8 ps-5">
+                                                @foreach (var t in seq.Templates)
+                                                {
+                                                    <div class="form-control-plaintext py-0">@t.Code — @t.Description</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (seq.Envelopes.Any())
+                                    {
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-nowrap pe-4">Envelopes:</label>
+                                            <div class="col-sm-8 ps-5">
+                                                @foreach (var e in seq.Envelopes)
+                                                {
+                                                    <div class="form-control-plaintext py-0">@e.Code — @e.Description</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <button type="button" class="btn btn-outline-primary" @onclick="@Close">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
