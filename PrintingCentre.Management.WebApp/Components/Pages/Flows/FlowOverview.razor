@@ -1,0 +1,38 @@
+@page "/flowoverview"
+@rendermode InteractiveServer
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Flow Overview</h1>
+    <a href="flowadd" class="btn btn-outline-primary me-2">Add Flow</a>
+</div>
+
+@if (Flows == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <FlowDetailsQuickViewPopup Flow="_selectedFlow" OnClose="ClosePopup" />
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Name</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flow in Flows)
+            {
+                <tr>
+                    <td>@flow.Name</td>
+                    <td>@flow.Note</td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-primary btn-sm mb-1" @onclick="() => ShowQuickViewPopup(flow)">Details</button>
+                        <a href="@($"flowedit/{flow.Id}")" class="btn btn-outline-primary btn-sm mb-1 ms-1">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

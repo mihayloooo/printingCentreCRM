@@ -16,6 +16,8 @@ namespace PrintingCentre.Management.Persistence
         public DbSet<Envelope> Envelopes { get; set; }
         public DbSet<Flow> Flows { get; set; }
         public DbSet<FlowSequence> FlowSequences { get; set; }
+        public DbSet<FlowSequencePrintTemplate> FlowSequencePrintTemplates { get; set; }
+        public DbSet<FlowSequenceEnvelope> FlowSequenceEnvelopes { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
         public DbSet<WorkOrderSequence> WorkOrderSequences { get; set; }
         public DbSet<WorkOrderSequenceTemplate> WorkOrderSequenceTemplates { get; set; }
