@@ -1,0 +1,98 @@
+@rendermode InteractiveServer
+
+@if (WorkOrder != null)
+{
+    <div class="modal fade show d-block" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Work Order Details</h5>
+                    <button type="button" class="close btn btn-lg" @onclick="@Close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Code:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@WorkOrder.Code</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Created on:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@WorkOrder.CreatedDate.ToShortDateString()</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Created by:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@WorkOrder.CreatedBy</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Last modified on:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@(WorkOrder.LastModifiedDate?.ToShortDateString() ?? "-")</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-4 col-form-label text-nowrap pe-4">Last modified by:</label>
+                        <div class="col-sm-8 ps-5">
+                            <label class="form-control-plaintext">@(WorkOrder.LastModifiedBy ?? "-")</label>
+                        </div>
+                    </div>
+
+                    @if (WorkOrder.WorkOrderSequences.Any())
+                    {
+                        <hr />
+                        <h6 class="mb-3">Sequences</h6>
+
+                        @foreach (var seq in WorkOrder.WorkOrderSequences)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-body">
+
+                                    @if (seq.Templates.Any())
+                                    {
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-nowrap pe-4">Templates:</label>
+                                            <div class="col-sm-8 ps-5">
+                                                @foreach (var t in seq.Templates)
+                                                {
+                                                    <div class="form-control-plaintext py-0">@t.Code — @t.Description (@t.PrintedPages pages)</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (seq.Envelopes.Any())
+                                    {
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-nowrap pe-4">Envelopes:</label>
+                                            <div class="col-sm-8 ps-5">
+                                                @foreach (var e in seq.Envelopes)
+                                                {
+                                                    <div class="form-control-plaintext py-0">@e.Code — @e.Description (@e.EnvelopedItems items)</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <button type="button" class="btn btn-outline-primary" @onclick="@Close">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

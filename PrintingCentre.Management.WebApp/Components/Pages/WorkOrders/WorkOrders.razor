@@ -1,0 +1,38 @@
+@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Work Orders</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Work Orders</h1>
+</div>
+
+@if (WorkOrdersList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <WorkOrderDetailsQuickViewPopup WorkOrder="_selectedWorkOrder" OnClose="ClosePopup" />
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Code</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workOrder in WorkOrdersList)
+            {
+                <tr>
+                    <td>@workOrder.Code</td>
+                    <td>@workOrder.CreatedDate.ToShortDateString()</td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-primary btn-sm mb-1" @onclick="() => ShowQuickViewPopup(workOrder)">Details</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

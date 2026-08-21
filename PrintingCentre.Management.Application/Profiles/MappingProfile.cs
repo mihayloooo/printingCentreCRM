@@ -20,7 +20,9 @@ using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.Cre
 using PrintingCentre.Management.Application.Features.PrintTemplates.Commands.UpdatePrintTemplate;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Queries.GetPrintTemplatesList;
 using PrintingCentre.Management.Application.Features.PrintTemplates.Queries.GetPrintTemplateDetail;
+using PrintingCentre.Management.Application.Features.WorkOrders.Queries.GetWorkOrdersList;
 using PrintingCentre.Management.Domain.Entities;
+using WorkOrderDtos = PrintingCentre.Management.Application.Features.WorkOrders.Queries.Dtos;
 
 namespace PrintingCentre.Management.Application.Profiles
 {
@@ -95,6 +97,17 @@ namespace PrintingCentre.Management.Application.Profiles
             CreateMap<FlowSequence, FlowSequenceDetailVm>().ReverseMap();
             CreateMap<FlowSequence, CreateFlowSequenceCommand>().ReverseMap();
             CreateMap<FlowSequence, UpdateFlowSequenceCommand>().ReverseMap();
+
+            CreateMap<WorkOrder, WorkOrderListVm>().ReverseMap();
+            CreateMap<WorkOrderSequence, WorkOrderDtos.WorkOrderSequenceDto>()
+                .ForMember(dest => dest.Templates, opt => opt.MapFrom(src => src.WorkOrderSequenceTemplates))
+                .ForMember(dest => dest.Envelopes, opt => opt.MapFrom(src => src.WorkOrderSequenceEnvelopes));
+            CreateMap<WorkOrderSequenceTemplate, WorkOrderDtos.PrintTemplateDto>()
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.PrintTemplate.Code))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.PrintTemplate.Description));
+            CreateMap<WorkOrderSequenceEnvelope, WorkOrderDtos.EnvelopeDto>()
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Envelope.Code))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Envelope.Description));
         }
     }
 }
