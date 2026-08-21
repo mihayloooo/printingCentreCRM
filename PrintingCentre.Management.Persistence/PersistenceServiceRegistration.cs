@@ -20,6 +20,7 @@ namespace PrintingCentre.Management.Persistence
             services.AddScoped<IEnvelopeRepository, EnvelopeRepository>();
             services.AddScoped<IFlowRepository, FlowRepository>();
             services.AddScoped<IFlowSequenceRepository, FlowSequenceRepository>();
+            services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
 
             return services;
         }
